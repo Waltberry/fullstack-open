@@ -6,7 +6,7 @@ This repo holds my solutions and notes for the University of Helsinki **Fullstac
 
 - Node via **nvm** (use the version in `.nvmrc`)
 - Git + GitHub
-- VS Code with **Prettier** and **ESLint** extensions
+- VS Code
 
 ## Quick start
 
