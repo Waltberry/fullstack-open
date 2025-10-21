@@ -6,7 +6,7 @@ sequenceDiagram
     participant browser
     participant server
 
-    Note over browser: User types a note and clicks Save
+    Note over browser: User submit new note and clicks Save
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
     server-->>browser: 302 Found (Location: /exampleapp/notes)
@@ -23,11 +23,10 @@ sequenceDiagram
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
     server-->>browser: 200 OK (application javascript)
 
-    Note right of browser: main.js fetches latest notes as JSON
+    Note right of browser: main.js fetches newest notes as JSON
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     server-->>browser: 200 OK (application json)
 
-    Note over browser: JS renders the updated notes list into the DOM
 ```
 
 ## 0.5 — Visiting the SPA page (/spa)
@@ -51,7 +50,6 @@ sequenceDiagram
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     server-->>browser: 200 OK (application json)
 
-    Note over browser: JS renders notes and later interactions avoid reloads
 ```
 
 ## 0.6 — Creating a new note in the SPA
@@ -60,14 +58,11 @@ sequenceDiagram
     participant browser
     participant server
 
-    Note over browser: JS intercepts form submit with preventDefault
-    Note right of browser: UI updates locally before network request
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
     activate server
-    Note right of browser: Body is JSON with content and date. Header Content-Type is application slash json
+
     server-->>browser: 201 Created
     deactivate server
 
-    Note over browser: No redirect and no extra GETs. Page stays put
 ```
