@@ -1,51 +1,34 @@
-## 0.4 — Creating a new note on the traditional Notes page
+# Part 0 — Diagrams (0.4–0.6)
 
+## 0.4 — Creating a new note on the traditional Notes page
 ```mermaid
 sequenceDiagram
     participant browser
     participant server
 
-    Note over browser: User types a note and clicks "Save" (form submit)
-
-    %% 1) Submit form as POST (urlencoded)
+    Note over browser: User types a note and clicks Save
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
-    server-->>browser: 302 Found<br/>Location: /exampleapp/notes
+    server-->>browser: 302 Found (Location: /exampleapp/notes)
     deactivate server
 
-    Note right of browser: Browser follows redirect (PRG pattern)
-
-    %% 2) Reload Notes page (HTML)
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
     server-->>browser: 200 OK (HTML document)
     deactivate server
 
-    %% 3) Fetch CSS
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
-    activate server
     server-->>browser: 200 OK (text/css)
-    deactivate server
 
-    %% 4) Fetch JavaScript
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
-    activate server
     server-->>browser: 200 OK (application/javascript)
-    deactivate server
 
-    Note right of browser: main.js runs and fetches the latest notes as JSON
-
-    %% 5) Fetch data.json via XHR
+    Note right of browser: main.js fetches latest notes as JSON
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
-    activate server
     server-->>browser: 200 OK (application/json)
-    deactivate server
 
-    Note over browser: JS callback renders the updated notes list into the DOM
+    Note over browser: JS renders the updated notes list into the DOM
 
-
-## 0.5 - Visiting the SPA page (`/spa`)
-```mermaid
 sequenceDiagram
     participant browser
     participant server
@@ -56,40 +39,28 @@ sequenceDiagram
     deactivate server
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
-    activate server
     server-->>browser: 200 OK (text/css)
-    deactivate server
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
-    activate server
     server-->>browser: 200 OK (application/javascript)
-    deactivate server
 
-    Note right of browser: spa.js runs and fetches initial data as JSON
+    Note right of browser: spa.js fetches initial notes as JSON
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
-    activate server
     server-->>browser: 200 OK (application/json)
-    deactivate server
 
-    Note over browser: JS renders the notes into the DOM (no full-page reloads later)
+    Note over browser: JS renders notes; later interactions avoid full page reloads
 
-
-
-## 0.6 — Creating a new note in the SPA
-```md
-## 0.6: New note in the SPA
-```mermaid
 sequenceDiagram
     participant browser
     participant server
 
-    Note over browser: User submits the form (no action/method on <form>)
-    Note right of browser: JS intercepts submit (e.preventDefault())<br/>updates local state and rerenders immediately
+    Note over browser: JS intercepts form submit (e.preventDefault)
+    Note right of browser: UI updates locally before network request
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
     activate server
-    Note right of browser: Request body = JSON { content, date }<br/>Header: Content-Type: application/json
+    Note right of browser: Body = JSON {content, date}; Header = Content-Type: application/json
     server-->>browser: 201 Created
     deactivate server
 
-    Note over browser: No redirect, no extra GETs; UI was already updated
+    Note over browser: No redirect and no extra GETs; page stays put
