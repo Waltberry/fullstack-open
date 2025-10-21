@@ -28,7 +28,10 @@ sequenceDiagram
     server-->>browser: 200 OK (application/json)
 
     Note over browser: JS renders the updated notes list into the DOM
+```
 
+## 0.5 — Visiting the SPA page (/spa)
+```mermaid
 sequenceDiagram
     participant browser
     participant server
@@ -49,7 +52,10 @@ sequenceDiagram
     server-->>browser: 200 OK (application/json)
 
     Note over browser: JS renders notes; later interactions avoid full page reloads
+```
 
+## 0.6 — Creating a new note in the SPA
+```mermaid
 sequenceDiagram
     participant browser
     participant server
@@ -64,3 +70,4 @@ sequenceDiagram
     deactivate server
 
     Note over browser: No redirect and no extra GETs; page stays put
+```
