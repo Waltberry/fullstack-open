@@ -1,0 +1,36 @@
+# dependencies
+node_modules/
+
+
+# build outputs
+/dist/
+/build/
+/out/
+.next/
+.vercel/
+.netlify/
+
+
+# test coverage
+/coverage/
+.nyc_output/
+
+
+# caches
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+
+
+# environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+
+# OS-specific
+.DS_Store
+Thumbs.db
